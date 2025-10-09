@@ -24,36 +24,18 @@ He de canviar el text de entrada i les variables no seran q1 i q2, seràn x,y i 
     <!--Script és una etiqueta molt important perquè ens indica que el que hi ha després és javascript. La línia anterior carrega matnjax que ens permet que surtin
     fòrmules matemàtiques boniques-->
   </script>
-  <style>/* Aquest part del codi és CSS, que serveix per donar estil als elements html
-    El codi CSS sempre té la següent estructura. COmença amb una etiqueta html que volem modificar i donar estil,
-    a continuació es posa una clau "curly bracket" que engloba una o diverses línies amb la següent estructura:
-    propietat1:valor1; propietat2:valor2; etc. I s'acaba amb una clau tancada.
-    Per exemple la línia 34 modificarà el body que es troba més a més a baix a la línia 76. Quines són les propietats?
-    Font-family és la família del tipus de lletres o font. Hi ha tres famílies de lletres: sans-serif que signifca sense
-    serifa. Les serifes són adornaments o remats de les lletres. Les que tenen serifa s'anomenen serif. El tercer tipus és 
-    monospace que significa que totes les lletres tenen el mateix ample i això és útil perquè el codi ho necessita.*/
+  <style>
     body {
       font-family: Arial, sans-serif;
-      /* La linea anterior busca lletra arial per tot el que surti dins del body(linea76) i si no la troba utilitza una lletra sense serif*/
+     
       margin: 20px;
-      /*Margin és el marge exterior. CSS té un model de caixa en el que el contingut o content està envoltat pel padding i aquest
-      està envoltat pel border i el border està envoltat pel margin. Margin, padding i border són propitats CSS que puc aplicar a
-      diferents etiquetes o tags html. Després de la propietat hi ha un valor en píxels, a vegades hi ha dos valors en pixels i a vegades tres valors.
-      Si hi ha un valor s'aplica en totes direccions.Si hi ha 2 valors s'aplica adalt i abaix, el segon a la dreta i esquerra.
-      Si hi ha 3 valors s'aplica tres valors: el primer s'aplica adalt, el segon a la dreta i a la esquerra, i el tercer abaix.
-      Si hi ha 4 números, el primer numero és el marge superior, el segon número és la dreta, el tercer abaix, i el quart a la esquerra.
-      Tots el body amb tot el contingut html visible per l'usuari amb paràgrafs, dibuixos(canvas), tindrà un marge de 20px per
-      tots els costats i no queden les lletres enganxades als estrems de l'ordinador o del mobil*/
     }
 
-    .equation { /*Equation amb un punt davant significa que és una classe o class que pot repetirse
-     diverses vegades en el codi. Si jo faig una classe la puc repetir, si faig un identificador sería un # i no es pot repetir
-    Per exemple #output només hi ha un output. També pot haver només 1 canvas(àrea de dibuix). Tot el que tingui la 
-    classe equation tindrà un marge de 20 pixels al voltant per exemple a la línea 92, sortirà un marge*/
+    .equation { 
       margin: 20px 0;
     }
 
-    .results { /* Tots els resultats sortiràn en negreta perquè és una classe que fa negreta*/
+    .results { 
       font-weight: bold;
     }
 
@@ -71,12 +53,8 @@ He de canviar el text de entrada i les variables no seran q1 i q2, seràn x,y i 
   <h1>Càlcul dels angles d'un robot amb dos braços</h1>
   <div>
     <label for="a1">Longitud del primer braç (a₁):</label>
-    /* Label es tradueix com "etiqueta". És un espai que serveix com a indicador del que s'ha de posar a l'input.*/
     <input type="number" id="a1" value="1" step="0.1"><br><br>
-    /*Input ssignifica una entrada de informació per part de l'usuari.Apareix una caixa de text per escriure
-    que només accepta números, perque type="number". Id significa identificador únic. Value és el valor per defecte, 
-    si no hi ha cap valor valor per defecte especificat, surt aquest
-    a la caixa de text. stpe significa la variació que es pot produir, és una línia en blanc, un espai.*/
+  
     <label for="a2">Longitud del segon braç (a₂):</label>
     <input type="number" id="a2" value="0.5" step="0.1"><br><br>
 
@@ -95,9 +73,6 @@ He de canviar el text de entrada i les variables no seran q1 i q2, seràn x,y i 
 function calculateAngles() {
   // Agafar les dades introduïdes per l'usuari
   let a1 = parseFloat(document.getElementById('a1').value);
-  //Let significa variable, antigament es posaba var(variable), a1 és el nombre de la variable que hem triat. 
-  //ParseFloat és una funció que converteix el que ha posat l'usuari en un floating point number, o numero decimal
-  //getElementById agafa(get) l'element que té l'identificador a1 i el guardarà a la variable a1.
   let a2 = parseFloat(document.getElementById('a2').value);
   let x = parseFloat(document.getElementById('x').value); // metres
   let y = parseFloat(document.getElementById('y').value); // metres
