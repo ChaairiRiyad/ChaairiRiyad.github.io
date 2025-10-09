@@ -1,7 +1,9 @@
+
 <!-- Aquest codi és un HTML i es diu index.html perquè tots els navegadors busquen index.html per obrir.lo-->
 <!DOCTYPE html>
-<!--He transformat la fórmula de cdirecta en cinversa, només canviant les fórmules.
-He de canviar el text de entrada i les variables no seran q1 i q2, seràn x,y i mantinc a1 i a2 i obtindré com a resultat q1 i q2-->
+<!-- En aquest codi he trasnformat la formúla de cdirecta a cinversa.
+He de canviar el text d'entrada i ara les variables no seràn q1 ni 12 sinó seràn x,y 
+i mantinc a1 i a2 i obtindre com a resultat q1 i q2-->
 <html lang="ca">
 <!-- La llengua emprada es català, si fos castellà seria "es" i angles "en"-->
   <head>
@@ -24,18 +26,38 @@ He de canviar el text de entrada i les variables no seran q1 i q2, seràn x,y i 
     <!--Script és una etiqueta molt important perquè ens indica que el que hi ha després és javascript. La línia anterior carrega matnjax que ens permet que surtin
     fòrmules matemàtiques boniques-->
   </script>
-  <style>
+  <style> /* Aquest part del codi és CSS, que serveix per donar estil als elements html
+    El codi CSS sempre té la següent estructura. COmença amb una etiqueta html que volem modificar i donar estil,
+    a continuació es posa una clau "curly bracket" que engloba una o diverses línies amb la següent estructura:
+    propietat1:valor1; propietat2:valor2; etc. I s'acaba amb una clau tancada.
+    Per exemple la línia 34 modificarà el body que es troba més a més a baix a la línia 76. Quines són les propietats?
+    Font-family és la família del tipus de lletres o font. Hi ha tres famílies de lletres: sans-serif que signifca sense
+    serifa. Les serifes són adornaments o remats de les lletres. Les que tenen serifa s'anomenen serif. El tercer tipus és 
+    monospace que significa que totes les lletres tenen el mateix ample i això és útil perquè el codi ho necessita.*/ 
+    
     body {
       font-family: Arial, sans-serif;
-     
+      /*La línia anterior busca lletra aria per toto el que surti dins del body (línia 76) i si no la troba utilitza una lletre sense serif.*/
       margin: 20px;
+      /* Margin és el marge exterior. CSS té un model en el que el contingut o content està pel padding i aquest 
+      està envoltat pel border i el border està envoltant pel margin. Margin, border i padding són propietats CSS, que puc aplicar a diferents
+      etiquetes o tags html. Després de la propietat hi ha un valor en píxels, a vegades hi ha dos valors en píxels i a vegades tres valors.
+      Si hi ha un valor s'aplica a totes les direccions. Si hi ha dos valors s'aplica el primer adalt i abaix i el segon valor a la dreta i a la 
+      esquerra. Si hi ha tres valors s'aplica el primer valor adalt, el segon valor a dreta i a esquerra i al tercer abaix.Si hi ha 
+      quatre números, el primern número és el marge superior, el segon número és la dreta, el tercer número és l'esquerra i per últim,
+      el quart número és el últim. Tot el body amb tot el contingut html visible per l'usuari amb paràgrafs, dibuixos(canvas), tindrà un marge
+      de 20px per tots els costats i no queden les lletres o els dibuixos enganxats als estrets de l'ordinador o del mòbil.*/
+      
     }
 
-    .equation { 
+    .equation { /*Equation amb un punt davant, significa que és una classe o class, que pot repetir-se 
+      diverses vegades en el codi. Si jo faig una classe, la puc repetir, si faig un identificador seria un # i no es pot repetir.
+     Per exemple #output, només hi ha un output. També pot haver només 1 canvas(àrea de dibuix). Tot el que tingui la classe 
+      equation, tindrà un marge de 20 pixels al voltant, per exemple a la línia 93, sortirà un marge . */
       margin: 20px 0;
     }
 
-    .results { 
+    .results {
       font-weight: bold;
     }
 
@@ -50,11 +72,11 @@ He de canviar el text de entrada i les variables no seran q1 i q2, seràn x,y i 
   </style>
 </head>
 <body>
-  <h1>Càlcul dels angles d'un robot amb dos braços</h1>
+  <h1>Càlcul de la posició d'un robot amb dos braços</h1>
   <div>
     <label for="a1">Longitud del primer braç (a₁):</label>
     <input type="number" id="a1" value="1" step="0.1"><br><br>
-  
+
     <label for="a2">Longitud del segon braç (a₂):</label>
     <input type="number" id="a2" value="0.5" step="0.1"><br><br>
 
@@ -73,10 +95,13 @@ He de canviar el text de entrada i les variables no seran q1 i q2, seràn x,y i 
 function calculateAngles() {
   // Agafar les dades introduïdes per l'usuari
   let a1 = parseFloat(document.getElementById('a1').value);
+  //Let significa variable, antigament es posaba var(variable), a1 és el nombre de la variable que hem triat. 
+  //ParseFloat és una funció que converteix el que ha posat l'usuari en un floating point number, o número decimal.
+  //GetElemenrByld agafa(get) l'element que té l'identificador a1 i el guardarà a la variable a1.
   let a2 = parseFloat(document.getElementById('a2').value);
-  let x = parseFloat(document.getElementById('x').value); // metres
-  let y = parseFloat(document.getElementById('y').value); // metres
-  //let q1 = q1_deg * Math.PI / 180; // Convertir graus a radians
+  let x = parseFloat(document.getElementById('x').value); // Metres
+  let y = parseFloat(document.getElementById('y').value); // Metres
+ //let q1 = q1_deg * Math.PI / 180; // Convertir graus a radians
   //let q2 = q2_deg * Math.PI / 180; // Convertir graus a radians
 
   // **Mostrar els contenidors de sortida**
