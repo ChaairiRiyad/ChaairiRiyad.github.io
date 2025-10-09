@@ -76,8 +76,13 @@
         fa que els resultats tinguin un marge superior de 20 píxels un color de fons gris, un marge intern de 10 píxels
         i un radi de la zona grisa de resultats de les cantonades de 5 píxels */
         canvas { border: 1px solid #ccc; margin-top: 20px; background-color: #f9f9f9; }
-        /*Canvas és l'area de dibuix on surten els vectors i té una cantonada de 1 píxel de gruix sòlid 
-        de color gris i un marge superior de 20 píxels i un fons grisos i es refereix al canvas que estroba a la línia 131*/
+        /*Canvas és una etiqueta html, és l'area de dibuix on surten els vectors i té una cantonada de 1 píxel de gruix sòlid(o dotted, o double.
+        de color gris i un marge superior de 20 píxels i un fons grisos i es refereix al canvas que es troba a la línia 133*/
+        /*A la línea 132 està buida, ja que entre <canvas> i </canvas> no hi ha rés, a més diu que l'style és displaynone, es a dir
+        que no es vegi. La línea 78 està controlant la línia 127, es a dir com és.
+        Podríem posar margin-top d'un altre manera?Si, margin: 20px 0 0 0.Com es fa el background d'un altre color? F9 és un número
+        hexadecimal. Multiplicar cada dígit de F9 hexadecimal (F9) en base 16= (15 x 16^1) + (9 x 16^0), i en binari es 11111001.
+        El número 249 es decimal i si vull pasar-lo a binari, he de dividir entre 2 com vam aprendre a quart.*/
         .teoria { background: #eef; padding: 10px; border-radius: 5px; margin-bottom: 20px; }
     </style>
 </head>
