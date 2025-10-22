@@ -35,24 +35,54 @@ h1,h2,h3{color:#0b3d91}
   desprès de la taula*/
 table{border-collapse:collapse;margin:10px 0}
   /*td és una cel-la i significa table data o dada d'una taula/cel-la i th és table heading que és la primera filera d'una
-  taula. Tant les cel-les normals com les cel-les de la primera filera tenen un espai al voltant de 6px.*/
+  taula. Tant les cel-les normals com les cel-les de la primera filera tenen un espai intern al voltant de 6px.
+  El contorn(border) serà de 1 pixel i sólid perquè podria ser dashed(amb ralltes) o dotted(punts).
+  El color ccc és #cccccc, perquè està abreujat.És un gris clar perquè gris és quan els 3 números són iguals.
+  C és un número hexadecimal(12), i és de color clar perquè s'aproxima a #FFFFFF que és el gris més clar/blanc.*/
 td,th{padding:6px;border:1px solid #ccc}
+  
 .step{margin:10px 0;padding-left:15px;border-left:3px solid #0b3d91}
+  /*Quan tenim un punt al principi de css és una classe i es pot posar més cops, quan tenim un #, és un identificador
+  per tant només es pot utilitzar 1 vegada.
+  La classe step surt a les línies 70,71,79,80...Perquè ens permet escriure els passos detallats amb les fórmules
+  Volem un espai al voltant de cada pas matemàtic de 10px en totes direccions. També volem que només a la esquerra
+  hi hagi un marge interior(padding-left). Vull una barra vertical blava sólida de 3px per a marcar cada pas/step,
+  és de 3px de gruix i sólida*/
+  
 .note{margin:8px 0;padding:8px;background:#fff8dc;border-left:4px solid #ffcc00}
+  /*Note és una nota explicativa que volem que surti separada i destacada del text. Li posem un marge vertical
+  al voltant de la nota de 8px i també intern de la mateixa mida(8px). Li posem un background diferent color crema
+  i una barra groga de 4px a l'esquerra.*/
 img {
+  /*La línea 56 afecta a totes les imatges del document(html)*/
   max-width: 100%;
+  /*La línea 58 fa que la imatge mai sigui més ample que el seu contenidor i que s'intenti adaptar al 100%*/
   height: auto;
-  display: block; /* opcional: elimina pequeños espacios debajo de la imagen */
+  /*Això fa que es mantinguin les proporcions de la imatge, perquè li hem dit que la alçada sigui automàtica i que
+  la amplada sigui la mateixa que la del contenidor. Això farà que s'adapti la imatge al ample de la pantalla i que no
+  es deformi.*/
+  
+  display: block;
+  /*Evita petits espais sota la imatge que apareixen per defecte amb inline, si no poso res entén display:inline i
+  deixa un espai a sota de la imatge que no volem*/
 }
 </style>
 </head>
 <body>
 <h1>Problema de navegació — Tarifa → Ceuta</h1>
+  <!--h1 és un títol gran, h2 és més petit(n subtítol), h3 és encara més petit. Existeixen h4,h5 i h6 que poden ser
+  més petits que el paràgraf, però depèn del tipus/font de lletra. -->
 
 <h2>0) Conversió de coordenades (DMS → decimal)</h2>
 <p>Per treballar amb fórmules trigonomètriques, necessitem les coordenades en decimal. A continuació convertim pas a pas.</p>
 
 <h3>Tarifa</h3>
+  <!--Les taules han de tenir la etiqueta table per començar i acabar, cada filera/línea de la taula s'anomena
+  en anglés row i l'etiqueta tr vol dir table row/filera de taula i ha de posar-se al principi i al final de table row
+  en una filera(com la 84 i 85).
+  Dintre de tr poden haver th o td. th vol dir table heading/títol de la taula. td vol dir table data/dada de la taula.
+  Cada th i cada th és una cel-la de la taula. Les th acostumen a posar-se en negreta per a distingir-se com a títol.
+  -->
 <table>
 <tr><th>Latitud (DMS)</th><td>36º 0' 45" N</td></tr>
 <tr><th>Longitud (DMS)</th><td>5º 36' 20.16" W</td></tr>
@@ -115,7 +145,11 @@ img {
 <div class="step">Cost: $$Cost = 47.84 \times 1.425 \approx 68.17 €$$</div>
 
 <h2>7) Vector de velocitat, corrent i vent (detall pas a pas)</h2>
-<p>Per calcular la trajectòria real de la nau, hem de combinar el vector de velocitat de la nau amb els vectors de corrent i vent...</p>
+<p>Per calcular la trajectòria real de la nau, hem de combinar el vector de velocitat de la nau amb els vectors de corrent i vent.Si
+estic al equador un segon és una milla,perquè cos de 0 és 1 i dona una  milla. A Barcelona estic a 42 graus de latitud i per tant un segon de
+longitud seria cos de 42 milles=0,74 milles. Si vaig més cap al Nord a Islàndia, la latitud de 60 graus i el cos de la latitud és 0,5 i vol dir
+que un segon de longitud serà mitja milla. En el pol nord o pol sud,l'angle de latitud és 90 graus i el cos de 90 és 0, per tant tenim 0 milles
+de distància. </p>
 
 <h3>Formules generals</h3>
 <div class="formula">$$u = s\sin\theta, \quad v = s\cos\theta$$<br>on s és la velocitat del vector i θ el rumb en graus.</div>
