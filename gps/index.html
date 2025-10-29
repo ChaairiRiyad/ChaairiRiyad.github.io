@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<title>Mesurador de distàncies</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  table { border-collapse: collapse; margin-top: 10px; }
+  th, td { border: 1px solid #ccc; padding: 5px 10px; text-align: center; }
+  input { margin-left: 5px; }
+  button { margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<h2>Mesurador de Latitud i Longitud</h2>
+
+<button onclick="mesura()">Mesura</button>
+  <!--Aquest botó html executa una funció javascript al clicar-se que es troba a la línea 36 que ens
+  permet trobar la nostra latitud i longitud. onclick és un atribut del html button que permet unir
+  el botó javascript a la function mesura quan fem click al botó.-->
+<table id="mesuresTable">
+  <!--La línea 23 és l'inici d'una taula, però li hem posat una id, perque?Podria ser per molts motius.
+  Primer, amb un #mesuresTable {propietat1:valor1} podría modificar per exemple els marges de la taula.
+  Primer hauríem d'agafar la id amb un #mesuresTable{color:blue;margin:20px}.
+  A més a més de poder canviar l'estil de la taula amb un id únic, podem veure que a la línea 63,
+  gràcies a getElementById, agafo l'identificador(mesuresTable) que abans no feia res, i el transformo
+  en una variable de tipus javascript constant perquè aixó aconseguim poder modificar-la i afegir una
+  altra variable diferent(row).-->
+  <tr>
+    <th>#</th>
+    <th>Latitud</th>
+    <th>Longitud</th>
+    <th>Ubicació</th>
+  </tr>
+</table>
+
+<h3>Distàncies pas a pas</h3>
+<div id="distancies"></div>
+<!--A la línea 40, tinc un div que és un àrea identificada amb una id, però no visible per defecte
+  per l'usuari, la puc fer visible amb codi javascript o css o una combinació que canvi la propietat
+  visible a hidden o a la inversa-->  
+
+<script>
+let mesures = [];
+ /*La línea 46 és un array. Els [] sempre indiquen arrays o conjunts de dades. Ara l'array és buit,
+però és important definir-ho buit per a que es reservi un espai a la memoria del ordinador per 
+emmagatzemar diverses dades*/
+
+function mesura() {
+  /*La funció mesura el primer que fa és una estructura condicional amb un if, que té un signe
+  d'admiració !(significa negació).
+  if (!navigator.geolocation). El if és el condicional que comprova que el objecte navigator de la
+  classe navigator que té un métode anomenat geolocation està disponible en aquell navegador o no.
+  El punt entre navigator i geolocation és molt important, perquè és la sintaxi del punt o dot syntax,
+  és a dir el punt separa l'objecte del métode que volem aplicar en aquest.El punt aplica l'acció.
+  Si el navegador no pot executar geolocation, haurà de alertar mitjançant un missatge.
+  El return el que fa és mostrar el missatge en pantalla.
+  Alert és una funció de javascript que mostra una finestra emergent amb un missatge per a l'usuari,
+  és una funció molt senzilla perquè només té un argument. Els arguments és el que tenim a dins dels
+  paréntesis, si no tenim arguments tenim els paréntesis buits.L'únic argument és el text que volem
+  mostrara a l'usuari. La finestreta emergent obliga a l'usuari a tancar-la. S'utilitza per a misstages
+  simples com avisos,errors,confirmacións.Hi han altres tipus de finetres emergents més modernes i potents
+  que s'anomenen modals o finestres emergents modals. Si hi ha geolocalització no surt la finestra,
+  i s'executen la linea 73 i seguents.
+  Navigation.geolocation és una API(interfície de programació d'aplicacions) que ens dona la posició 
+  latitu i longitud de l'usuari. Aquesta aplicació té una funció principal que és getCurrentPosition
+  que significa obtenir la posició actual. Té 3 arguments encara que veiem només 1. El primer, es diu
+  success/éxit, el segon és error, i el tercer és options. Llavor la funció és
+  getCurrentPositions(success,error,position)El primer argument success és un callback, és un sistema que
+  es crida i que permet obtenir la posició, i ho fem amb la funció fletcha => que és una forma molt ràpida
+  d'escriure una funció sense escriure la paraula function.Les funcions => tenen una sintàxi simplificada i
+  no utilitza la paraula this per referir-se a elles mateixes i ocupen menys espai.
+  */
+  if (!navigator.geolocation) {
+    alert("La geolocalització no és compatible amb aquest navegador.");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition((pos) => {
+    const lat = pos.coords.latitude;
+    const lon = pos.coords.longitude;
+
+    const ubicacio = prompt("Indica el lloc on s'ha fet la mesura:");
+
+    mesures.push({lat, lon, ubicacio});
+    actualitzaTaula();
+    calculaDistancies();
+  }, (err) => {
+    alert("Error al obtenir la localització: " + err.message);
+  });
+}
+
+function actualitzaTaula() {
+  const table = document.getElementById("mesuresTable");
+  // netegem totes les files excepte la capçalera
+  table.innerHTML = `
+    <tr>
+      <th>#</th>
+      <th>Latitud</th>
+      <th>Longitud</th>
+      <th>Ubicació</th>
+    </tr>`;
+  mesures.forEach((m, i) => {
+    const row = table.insertRow();
+    row.insertCell(0).textContent = i+1;
+    row.insertCell(1).textContent = m.lat.toFixed(6);
+    row.insertCell(2).textContent = m.lon.toFixed(6);
+    row.insertCell(3).textContent = m.ubicacio;
+  });
+}
+
+function calculaDistancies() {
+  const div = document.getElementById("distancies");
+  if (mesures.length < 2) {
+    div.innerHTML = "Afegiu almenys dues mesures per calcular distàncies.";
+    return;
+  }
+
+  let html = "";
+  for (let i = 0; i < mesures.length - 1; i++) {
+    const p1 = mesures[i];
+    const p2 = mesures[i+1];
+
+    // Pitàgores (aproximació)
+    const dx = (p2.lon - p1.lon) * Math.cos((p1.lat + p2.lat)/2 * Math.PI/180) * 111.32; // km
+    const dy = (p2.lat - p1.lat) * 110.574; // km
+    const distPitag = Math.sqrt(dx*dx + dy*dy);
+
+    // Haversine
+    const R = 6371; // radi de la Terra en km
+    const dLat = (p2.lat - p1.lat) * Math.PI/180;
+    const dLon = (p2.lon - p1.lon) * Math.PI/180;
+    const a = Math.sin(dLat/2)**2 + Math.cos(p1.lat*Math.PI/180)*Math.cos(p2.lat*Math.PI/180)*Math.sin(dLon/2)**2;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    const distHav = R * c;
+
+    html += `
+      <p><b>${i+1} → ${i+2}:</b> ${p1.ubicacio} → ${p2.ubicacio} <br>
+      Pitàgores: ${distPitag.toFixed(3)} km, Haversine: ${distHav.toFixed(3)} km</p>`;
+  }
+
+  div.innerHTML = html;
+}
+</script>
+
+</body>
+</html>
