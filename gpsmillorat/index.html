@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="ca">
 <head>
@@ -39,7 +37,11 @@
     El gpx té unes etiquetes propies, la pimera etiqueta és <TRK> que és genera dintre de la function exportGPX () 
       TRK significa tracks o trjectes que són registres de camins o rutes seguits per una serie de punts(latitud,longitud ordenats cronològicament))
       Dintre del TRK hi ha una etiqueta <name> que hi ha el nom de la ruta, i a continuació hi ha una etiqueta trackpoint(trkpt)
-  Abans hi ha un trkseg que es una sequencia de trkpt que a vegades s'anomena waypoint o punts de referéncia-->
+  Abans hi ha un trkseg que es una sequencia de trkpt que a vegades s'anomena waypoint o punts de referéncia
+  Podem afegir més etiquetes com per exemp <ele> que signfica elevació que és l'alçada en metres del puntn gpx és un
+  format obert, es a dir, que no hi ha cap empresa propietaria i es un format molt utilitzat per dispositius gps,per
+  programes que utilitzen mapes digitals o per apps que utilitzen rutes.És compatible amb GTS que són sistemes d'informació
+  geogràfica-->
 <button onclick="mesura()">Mesura</button>
 <button onclick="exportCSV()">Exporta CSV</button>
 <button onclick="exportGPX()">Exporta GPX</button>
@@ -60,13 +62,35 @@
 <div id="map"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!--La línia 65 carrega leaflet, js fa posible que funcionin ens mapes.
+  Leaflet es una biblioteca javascript de codi obert.Codi obert vol dir que tothom té accés i pot veure el codi.
+  Per exemple google maps no és de codi obert, sino que pertany a google, es codi tancat/codi propietari.A més de no
+  poder modificar-lo no podem veure tot.Es com libre office i microsoft office.Leafet fa mapes interactius compatibles
+  amb el móbil.-->
 <script>
 let mesures = [];
+  /*Let mesures signidica crear  una variable global perque afecta a tot el script que comença a la linea 71 i el
+  iniciem o la inicialitzem amb un conjunt de valors que es coneixen ara com array buit amb la intenció de emmagatzemar
+  lectures gps de latitud i longitud.
+  Let map crea una instancia de mapa tipus leaflet i l'assigna a un element, al que tingui una id anomenada map en aquest
+  cas és un divisor o àrea buida de la pàgina que està a la línia 62 i que es el lloc on apareixerà el map.Si no hi ha cap cosa
+  a la linea 62 la 78 generaría un error, perque no trobaria un lloc on posar un mapa.
+  El setView dona una vista inicial del mapa  i les coordenades inicials son 0,0 que està en el golf de guinea i 2 és el zoom
+  i el zoom 2 es molt allunyat,vista global(zoom 8 veuriem catalunya,zoom 13 martorell i zoom 0 tot el món i zoom 18l'insti)
+  */
 let map = L.map('map').setView([0,0], 2);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  /*L.tileLayer, title significa mosaic per tant  és una capa de mosaic de openstreetmap.Openstreetmap és la versió de codi
+  obert i lliure del codi tancat de google maps. X i Y són latitud i longitud que ara són unes variables i Z és la variable zoom.
+  */
   attribution: '© OpenStreetMap contributors'
 }).addTo(map);
+  /*addTo(map) afegeix les capes al mapa creat.Si la web te milers de peticions x seg pot tenir problemes perque està anant
+  a un servidor lliure de openstreetmap. Si passes aixó,podría descarregar openstreetmap en el nostre github perqué és un
+  codi obert.*/
 let polyline = L.polyline([], {color:'red'}).addTo(map);
+  /**/
+
 
 function mesura() {
   const estat = document.getElementById("estat");
