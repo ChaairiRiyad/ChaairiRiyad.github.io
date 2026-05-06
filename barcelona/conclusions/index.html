@@ -163,6 +163,22 @@ The Trend Level analysis offers a comprehensive historical view of $NO_2$ fluctu
    <strong>3RD GRAPHIC</strong>
   The Calendar Plot serves as a vital diagnostic tool for understanding the daily air quality dynamics at Parc Vall Hebron. Unlike broader averages, this visualization allows us to identify specific 'pollution episodes' with high precision.By analyzing the daily color intensities, we can observe that high $NO_2$ levels are not distributed randomly; they often cluster during mid-week periods, reflecting the cumulative impact of industrial and commercial traffic. Furthermore, the presence of isolated 'dark cells' (high pollution days) during weekends or holidays points toward specific meteorological stagnation events where air becomes trapped near the surface. This granular, day-by-day perspective is essential for public health planning, as it highlights that even in years with 'good' averages, citizens are still exposed to dangerous short-term spikes in air toxicity.
 </p>
+ <script>
+    // Mode clar/fosc amb canvi d'icona
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle.querySelector('i');
 
+    themeToggle.addEventListener('click', () => {
+      if (document.body.getAttribute('data-bs-theme') === 'dark') {
+        document.body.setAttribute('data-bs-theme', 'light');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+      } else {
+        document.body.setAttribute('data-bs-theme', 'dark');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+      }
+    });
+  </script>
 </body>
 </html>
