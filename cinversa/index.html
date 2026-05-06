@@ -243,8 +243,8 @@ function calculateAngles() {
   let a2 = parseFloat(document.getElementById('a2').value);
   let x = parseFloat(document.getElementById('x').value); // Metres
   let y = parseFloat(document.getElementById('y').value); // Metres
- //let q1 = q1_deg * Math.PI / 180; // Convertir graus a radians
-  //let q2 = q2_deg * Math.PI / 180; // Convertir graus a radians
+  let d=Math.sqrt(x*x+y*y);//Calculem amb pitàgores la distància de la hipotenusa del braç robòtic en la posició x,y.
+  
 
   // **Mostrar els contenidors de sortida**
   document.getElementById('output').style.display = 'block';
