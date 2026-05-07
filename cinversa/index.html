@@ -243,17 +243,22 @@ function calculateAngles() {
   let a2 = parseFloat(document.getElementById('a2').value);
   let x = parseFloat(document.getElementById('x').value); // Metres
   let y = parseFloat(document.getElementById('y').value); // Metres
+ //objectiu calcular angles q1,q2
   let d=Math.sqrt(x*x+y*y);//Calculem amb pitàgores la distància de la hipotenusa del braç robòtic en la posició x,y.
-  
-
+  let q2=Math.acos((d*d-a1*a1-a2*a2)/(2*a1*a2))
+  let k1=a1+a2+Math.cos(q2)
+ let k2=a2*Math.sin(q2)
+ let q1=Mathh.atan2(x,y)-Math.atan2(k1,k2)
+let q1_deg=q1*180/Math.PI
+ let q2_deg=q2*180/Math.PI
   // **Mostrar els contenidors de sortida**
   document.getElementById('output').style.display = 'block';
   document.getElementById('robotCanvas').style.display = 'block';
 // Aquest contenidors només sortiran si l'usuari clica a un botó que està a la línia 88 aquesta línia,activa a la 94 i aquesta la 112 i 113.
   // Fase 1: Fórmules
   let output = "<div class='equation'>Les equacions per calcular la posició final del robot són:</div>";
-  output += "<div class='equation'>\\[ x = a_1 \\cos(q_1) + a_2 \\cos(q_1 + q_2) \\]</div>";
-  output += "<div class='equation'>\\[ y = a_1 \\sin(q_1) + a_2 \\sin(q_1 + q_2) \\]</div>";
+  output += "<div class='equation'>\\[ q_2 = \\arccos(q_2) + a_2 \\cos(q_1 + q_2) \\]</div>";
+  output += "<div class='equation'>\\[ q_2 = a_1 \\sin(q_1) + a_2 \\sin(q_1 + q_2) \\]</div>";
 
   // Fase 2: Substituir les variables
   output += "<div class='equation'>Substituïm els valors:</div>";
